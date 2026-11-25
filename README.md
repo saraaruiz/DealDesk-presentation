@@ -23,3 +23,7 @@ No build step is needed on Cloudflare: publish the repo root, where `index.html`
 ## Credits
 
 Brand icons from [Simple Icons](https://simpleicons.org) (CC0). Tool logos belong to their owners and are used only to name the tools used.
+
+## Films
+
+`media/jordan.mp4` (26 s) and `media/motion.mp4` (15 s) are compressed to 1280×720 and open from the **Watch the films** buttons. Keep each file under 25 MB for Cloudflare Pages. Posters are in `src/images/poster_*.jpg`.

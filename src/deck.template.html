@@ -134,6 +134,15 @@ p,li{font-size:28px;line-height:1.38}
 .lb{position:fixed;inset:0;z-index:90;background:rgba(4,5,46,.93);display:none;place-items:center;padding:24px;cursor:zoom-out}
 .lb.open{display:grid}.lb img{max-width:96vw;max-height:94vh;border-radius:14px;background:#fff}
 [data-zoom]{cursor:zoom-in}
+.fm{position:fixed;inset:0;z-index:95;background:rgba(4,5,46,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px;color:#fff;font-family:var(--f)}
+.fm.open{display:flex}
+.fm .tabs{display:flex;gap:10px}
+.fm .tabs button,.fm .x{font:600 16px var(--f);color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:10px 18px;cursor:pointer}
+.fm .tabs button[aria-selected=true]{background:linear-gradient(100deg,var(--blue),var(--violet));border-color:transparent}
+.fm video{width:min(92vw,calc((100vh - 170px)*1.7778));max-height:calc(100vh - 170px);border-radius:14px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.fm p{font:500 15px/1.4 var(--f);opacity:.75;max-width:80ch;text-align:center;margin:0}
+.fm .x{position:absolute;top:18px;right:18px}
+.cover .acts{flex-wrap:wrap;max-width:1060px}
 </style>
 <link rel="icon" type="image/png" href="{{logo_eye}}">
 </head>
@@ -199,6 +208,7 @@ p,li{font-size:28px;line-height:1.38}
       <a class="pill solid" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Open the process document<svg class="i"><use href="#i-out"/></svg></a>
       <a class="pill" href="https://www.figma.com/proto/jgldLsdlZKwrYC2xhzIm7k/DealDesk---Futureproofing?node-id=173-2546&viewport=401%2C15%2C0.3&t=MKHOg2uJodCdIbC7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=173%3A2529&show-proto-sidebar=1" target="_blank" rel="noopener"><svg class="b"><use href="#b-figma"/></svg>App prototype<svg class="i"><use href="#i-out"/></svg></a>
       <a class="pill" href="https://deal-desk-app.pages.dev/" target="_blank" rel="noopener"><svg class="i"><use href="#i-monitor"/></svg>Homepage<svg class="i"><use href="#i-out"/></svg></a>
+      <button class="pill" data-films="0"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
     </div>
     <div class="phones rv" style="--d:3" aria-hidden="true">
       <div class="phone p1"><img src="{{home}}" alt=""></div>
@@ -356,7 +366,7 @@ p,li{font-size:28px;line-height:1.38}
       <div class="glass card rv" style="--d:12;flex:1.3;padding:24px 30px"><span class="ev did" style="margin-bottom:12px">Checked by me</span><p style="font-size:24px;line-height:1.38;margin-top:12px">Dark-theme contrast, calculated and cross-checked. Every status has a word. The full scenario and its edge cases.</p></div>
       <div class="glass card rv" style="--d:13;flex:1;padding:24px 30px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:linear-gradient(135deg,rgba(62,99,245,.3),rgba(105,65,225,.25))">
         <p style="font-size:26px;line-height:1.3;font-weight:600">One expert can change a design. It can't validate it.</p>
-        <a class="pill solid" style="align-self:flex-start" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Read the process document<svg class="i"><use href="#i-out"/></svg></a>
+        <a class="pill solid" style="align-self:flex-start" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Read the process document<svg class="i"><use href="#i-out"/></svg></a> <button class="pill" data-films="1" style="align-self:flex-start;margin-top:10px"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
       </div>
     </div>
   </section>
@@ -365,6 +375,12 @@ p,li{font-size:28px;line-height:1.38}
 </div>
 
 <div class="menu" id="menu" role="dialog" aria-label="Contents"><button class="x" id="menuX">Close ✕</button><ol id="menuList"></ol></div>
+<div class="fm" id="fm" role="dialog" aria-label="Films" aria-modal="true">
+  <button class="x" id="fmX">Close ✕</button>
+  <div class="tabs" role="tablist"><button role="tab" id="fmT0" aria-selected="true">The problem · 26 s</button><button role="tab" id="fmT1" aria-selected="false">The product · 15 s</button></div>
+  <video id="fmV" controls playsinline preload="none" poster="{{poster_jordan}}"></video>
+  <p id="fmC"></p>
+</div>
 <div class="lb" id="lb" role="dialog" aria-label="Enlarged image"><img id="lbImg" alt=""></div>
 <div class="rot">Best in landscape</div>
 
@@ -402,8 +418,20 @@ p,li{font-size:28px;line-height:1.38}
   var lb=document.getElementById('lb'),li=document.getElementById('lbImg');
   document.querySelectorAll('[data-zoom]').forEach(function(el){el.addEventListener('click',function(){var im=el.querySelector('img');li.src=el.dataset.zoom;li.alt=im?im.alt:'';lb.classList.add('open')})});
   lb.onclick=function(){lb.classList.remove('open')};
+
+  var fm=document.getElementById('fm'),fv=document.getElementById('fmV'),fc=document.getElementById('fmC');
+  var films=[{src:'media/jordan.mp4',poster:'{{poster_jordan}}',cap:'Jordan Reyes, deal coordinator, sends one more message from the car park. AI-generated character and scenes. Fictional product, fictional data.'},{src:'media/motion.mp4',poster:'{{poster_motion}}',cap:'The product in motion: what DealDesk catches, how each issue gets its action, and why pending is not approved.'}];
+  function filmTab(n){fv.pause();fv.poster=films[n].poster;fv.src=films[n].src;fc.textContent=films[n].cap;document.getElementById('fmT0').setAttribute('aria-selected',n===0);document.getElementById('fmT1').setAttribute('aria-selected',n===1)}
+  function openFilms(n){filmTab(n);fm.classList.add('open');fv.play().catch(function(){})}
+  function closeFilms(){fv.pause();fm.classList.remove('open')}
+  document.querySelectorAll('[data-films]').forEach(function(b){b.addEventListener('click',function(){openFilms(+b.dataset.films)})});
+  document.getElementById('fmT0').onclick=function(){filmTab(0);fv.play().catch(function(){})};
+  document.getElementById('fmT1').onclick=function(){filmTab(1);fv.play().catch(function(){})};
+  document.getElementById('fmX').onclick=closeFilms;
+  fm.addEventListener('click',function(e){if(e.target===fm)closeFilms()});
   document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){closeMenu();lb.classList.remove('open');return}
+    if(e.key==='Escape'){closeMenu();lb.classList.remove('open');closeFilms();return}
+    if(fm.classList.contains('open'))return;
     if(menu.classList.contains('open')||lb.classList.contains('open'))return;
     if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>-1&&!(e.target&&e.target.tagName==='A'&&e.key==='Enter')){e.preventDefault();go(cur+1)}
     if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();go(cur-1)}
