@@ -35,7 +35,8 @@ svg.b{width:1em;height:1em;fill:currentColor;flex:none}
 /* HUD */
 .hud{position:absolute;left:0;right:0;top:0;height:96px;padding:0 96px;display:flex;align-items:center;justify-content:space-between;z-index:20}
 .brand{display:flex;align-items:center;gap:14px;font:700 26px/1 var(--f);letter-spacing:-.01em}
-.brand .dot{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--violet))}
+.brand .logo-eye{height:52px;width:auto;display:block}
+.brand b{font-weight:700}
 .brand span{font-weight:500;opacity:.65}
 .hud-r{display:flex;gap:14px;align-items:center}
 .pill{display:inline-flex;align-items:center;gap:12px;font:600 24px/1 var(--f);padding:0 26px;height:60px;border-radius:999px;background:var(--glass);border:1.5px solid var(--glass-b);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);transition:background .25s,transform .25s var(--ease)}
@@ -91,6 +92,9 @@ p,li{font-size:28px;line-height:1.38}
 
 /* cover */
 .cover{justify-content:center}
+.on-cover .brand{opacity:0;pointer-events:none}
+.brand{transition:opacity .4s}
+.cover .logo-cover{width:150px;height:auto;display:block;margin:0 0 26px -4px}
 .cover h1{font-size:214px;line-height:.86;letter-spacing:-.05em;font-weight:800;margin:6px 0 0 -8px}
 .cover h1 em{font-style:normal;background:linear-gradient(100deg,var(--sky),var(--lav) 60%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .cover .sub{font-size:46px;line-height:1.2;font-weight:600;letter-spacing:-.02em;max-width:18ch;margin-top:38px}
@@ -131,6 +135,7 @@ p,li{font-size:28px;line-height:1.38}
 .lb.open{display:grid}.lb img{max-width:96vw;max-height:94vh;border-radius:14px;background:#fff}
 [data-zoom]{cursor:zoom-in}
 </style>
+<link rel="icon" type="image/png" href="{{logo_eye}}">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -174,7 +179,7 @@ p,li{font-size:28px;line-height:1.38}
 <div id="stage">
   <div class="prog" id="prog"></div>
   <header class="hud">
-    <div class="brand"><i class="dot"></i>DealDesk <span id="where">Process journey</span></div>
+    <div class="brand"><img class="logo-eye" src="{{logo_eye}}" alt="DealDesk"><b>DealDesk</b> <span id="where">Process journey</span></div>
     <div class="hud-r">
       <a class="pill solid" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Process document<svg class="i"><use href="#i-out"/></svg></a>
       <button class="pill" id="menuBtn" aria-expanded="false">Contents</button>
@@ -185,6 +190,7 @@ p,li{font-size:28px;line-height:1.38}
 
   <!-- 0 COVER -->
   <section class="slide cover active" data-title="DealDesk" data-bg="40,-25,-15,35,65,55">
+    <img class="rv logo-cover" src="{{logo_eye}}" alt="DealDesk logo">
     <div class="kick rv"><b>Futureproofing</b> Prototype challenge · Process journey</div>
     <h1 class="rv" style="--d:1">Deal<em>Desk</em></h1>
     <p class="sub rv" style="--d:2">A second look before a deal message leaves the firm.</p>
@@ -380,6 +386,7 @@ p,li{font-size:28px;line-height:1.38}
     [].forEach.call(ml.querySelectorAll('a'),function(a,k){a.setAttribute('aria-current',k===i?'true':'false')});
     document.getElementById('count').textContent=(i+1)+' / '+slides.length;
     document.getElementById('where').textContent=i?slides[i].dataset.title:'Process journey';
+    document.getElementById('stage').classList.toggle('on-cover',i===0);
     document.getElementById('prog').style.transform='scaleX('+((i+1)/slides.length)+')';
     document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===slides.length-1;
     var v=(slides[i].dataset.bg||'').split(',').map(Number);
