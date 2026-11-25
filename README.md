@@ -27,3 +27,5 @@ Brand icons from [Simple Icons](https://simpleicons.org) (CC0). Tool logos belon
 ## Films
 
 `media/jordan.mp4` (26 s) and `media/motion.mp4` (15 s) are compressed to 1280×720 and open from the **Watch the films** buttons. Keep each file under 25 MB for Cloudflare Pages. Posters are in `src/images/poster_*.jpg`.
+
+`media/walkthrough.mp4` (3:43, 1280×720) opens from the **Walkthrough video** button in the header. Links (process document, Figma prototype, homepage) open in an in-page window with Minimize, Close and Open in new tab; embedding requires the Google Doc to be shared with the link.

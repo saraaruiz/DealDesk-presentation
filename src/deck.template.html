@@ -144,15 +144,31 @@ p,li{font-size:28px;line-height:1.38}
 .lb{position:fixed;inset:0;z-index:90;background:rgba(4,5,46,.93);display:none;place-items:center;padding:24px;cursor:zoom-out}
 .lb.open{display:grid}.lb img{max-width:96vw;max-height:94vh;border-radius:14px;background:#fff}
 [data-zoom]{cursor:zoom-in}
-.fm{position:fixed;inset:0;z-index:95;background:rgba(4,5,46,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px;padding:24px;color:#fff;font-family:var(--f)}
-.fm.open{display:flex}
-.fm .tabs{display:flex;gap:10px}
-.fm .tabs button,.fm .x{font:600 16px var(--f);color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:10px 18px;cursor:pointer}
-.fm .tabs button[aria-selected=true]{background:linear-gradient(100deg,var(--blue),var(--violet));border-color:transparent}
-.fm video{width:min(92vw,calc((100vh - 170px)*1.7778));max-height:calc(100vh - 170px);border-radius:14px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.fm p{font:500 15px/1.4 var(--f);opacity:.75;max-width:80ch;text-align:center;margin:0}
-.fm .x{position:absolute;top:18px;right:18px}
 .cover .acts{flex-wrap:wrap;max-width:1060px}
+.wbd{position:fixed;inset:0;z-index:94;background:rgba(4,5,46,.88);display:none}
+.wbd.open{display:block}
+.win,.fm{position:fixed;z-index:95;display:none;flex-direction:column;background:#0b0c3a;border:1px solid rgba(255,255,255,.2);border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.6);overflow:hidden;font-family:var(--f);color:#fff}
+.win.open,.fm.open{display:flex}
+.win{inset:3.5vh 3.5vw}
+.fm{left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,calc((100vh - 190px)*1.7778));}
+.wbar{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 18px;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.12);flex:none}
+.wtitle{font:700 17px var(--f);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb{font:600 15px var(--f);color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;line-height:1}
+.wb:hover,.wb:focus-visible{background:rgba(255,255,255,.2)}
+.wb svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wbody{flex:1;min-height:0;background:#fff;position:relative}
+.wbody iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.win.mini,.fm.mini{inset:auto 24px 24px auto;left:auto;top:auto;transform:none;width:420px;height:auto}
+.win.mini .wbody{display:none}
+.win.mini .wbar .lbl,.fm.mini .tabs,.fm.mini p{display:none}
+.fm .tabs{display:flex;gap:8px;padding:12px 16px 0;flex-wrap:wrap}
+.fm .tabs button{font:600 15px var(--f);color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;cursor:pointer}
+.fm .tabs button[aria-selected=true]{background:linear-gradient(100deg,var(--blue),var(--violet));border-color:transparent}
+.fm video{width:100%;display:block;background:#000;margin-top:12px;max-height:calc(100vh - 200px)}
+.fm p{font:500 15px/1.4 var(--f);opacity:.78;margin:0;padding:12px 18px}
+.fm.mini video{margin-top:0}
+.mini .wbar .wtitle{font-size:15px}
+@media (max-width:700px){.wb .lbl{display:none}}
 </style>
 <link rel="icon" type="image/png" href="{{logo_eye}}">
 </head>
@@ -200,6 +216,7 @@ p,li{font-size:28px;line-height:1.38}
   <header class="hud">
     <div class="brand"><img class="logo-eye" src="{{logo_eye}}" alt="DealDesk"><b>DealDesk</b> <span id="where">Process journey</span></div>
     <div class="hud-r">
+      <button class="pill solid" data-films="0"><svg class="i"><use href="#i-play"/></svg>Walkthrough video</button>
       <button class="pill" id="menuBtn" aria-expanded="false">Contents</button>
       <span class="count" id="count">1 / 8</span>
     </div>
@@ -213,10 +230,10 @@ p,li{font-size:28px;line-height:1.38}
     <p class="sub rv" style="--d:2">A second look before a deal message leaves the firm.</p>
     <p class="meta rv" style="--d:3">Sara Ruíz Díaz · UX/UI designer · Bogotá · November 25, 2026<br>Fictional product, fictional data (Project Harbor). Nothing is sent.</p>
     <div class="acts rv" style="--d:4">
-      <a class="pill solid" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Open the process document<svg class="i"><use href="#i-out"/></svg></a>
-      <a class="pill" href="https://www.figma.com/proto/jgldLsdlZKwrYC2xhzIm7k/DealDesk---Futureproofing?node-id=173-2546&viewport=401%2C15%2C0.3&t=MKHOg2uJodCdIbC7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=173%3A2529&show-proto-sidebar=1" target="_blank" rel="noopener"><svg class="b"><use href="#b-figma"/></svg>App prototype<svg class="i"><use href="#i-out"/></svg></a>
-      <a class="pill" href="https://deal-desk-app.pages.dev/" target="_blank" rel="noopener"><svg class="i"><use href="#i-monitor"/></svg>Homepage<svg class="i"><use href="#i-out"/></svg></a>
-      <button class="pill" data-films="0"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
+      <a class="pill solid" data-win="doc" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Open the process document<svg class="i"><use href="#i-out"/></svg></a>
+      <a class="pill" data-win="proto" href="https://www.figma.com/proto/jgldLsdlZKwrYC2xhzIm7k/DealDesk---Futureproofing?node-id=173-2546&viewport=401%2C15%2C0.3&t=MKHOg2uJodCdIbC7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=173%3A2529&show-proto-sidebar=1" target="_blank" rel="noopener"><svg class="b"><use href="#b-figma"/></svg>App prototype<svg class="i"><use href="#i-out"/></svg></a>
+      <a class="pill" data-win="home" href="https://deal-desk-app.pages.dev/" target="_blank" rel="noopener"><svg class="i"><use href="#i-monitor"/></svg>Homepage<svg class="i"><use href="#i-out"/></svg></a>
+      <button class="pill" data-films="1"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
     </div>
     <div class="phones rv" style="--d:3" aria-hidden="true">
       <div class="phone p1"><img src="{{home}}" alt=""></div>
@@ -374,7 +391,7 @@ p,li{font-size:28px;line-height:1.38}
       <div class="glass card rv" style="--d:12;flex:1.3;padding:24px 30px"><span class="ev did" style="margin-bottom:12px">Checked by me</span><p style="font-size:24px;line-height:1.38;margin-top:12px">Dark-theme contrast, calculated and cross-checked. Every status has a word. The full scenario and its edge cases.</p></div>
       <div class="glass card rv" style="--d:13;flex:1;padding:24px 30px;display:flex;flex-direction:column;justify-content:center;gap:16px;background:linear-gradient(135deg,rgba(62,99,245,.3),rgba(105,65,225,.25))">
         <p style="font-size:26px;line-height:1.3;font-weight:600">One expert can change a design. It can't validate it.</p>
-        <a class="pill solid" style="align-self:flex-start" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Read the process document<svg class="i"><use href="#i-out"/></svg></a> <button class="pill" data-films="1" style="align-self:flex-start;margin-top:10px"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
+        <a class="pill solid" data-win="doc" style="align-self:flex-start" href="https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing" target="_blank" rel="noopener"><svg class="b"><use href="#b-gdocs"/></svg>Read the process document<svg class="i"><use href="#i-out"/></svg></a> <button class="pill" data-films="1" style="align-self:flex-start;margin-top:10px"><svg class="i"><use href="#i-play"/></svg>Watch the films</button>
       </div>
     </div>
   </section>
@@ -386,10 +403,22 @@ p,li{font-size:28px;line-height:1.38}
 </div>
 
 <div class="menu" id="menu" role="dialog" aria-label="Contents"><button class="x" id="menuX">Close ✕</button><ol id="menuList"></ol></div>
-<div class="fm" id="fm" role="dialog" aria-label="Films" aria-modal="true">
-  <button class="x" id="fmX">Close ✕</button>
-  <div class="tabs" role="tablist"><button role="tab" id="fmT0" aria-selected="true">The problem · 26 s</button><button role="tab" id="fmT1" aria-selected="false">The product · 15 s</button></div>
-  <video id="fmV" controls playsinline preload="none" poster="{{poster_jordan}}"></video>
+<div class="wbd" id="wbd"></div>
+<div class="win" id="win" role="dialog" aria-modal="true" aria-label="Preview">
+  <div class="wbar"><span class="wtitle" id="wT"></span>
+    <a class="wb" id="wExt" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg><span class="lbl">Open in new tab</span></a>
+    <button class="wb" id="wMin" aria-label="Minimize"><svg viewBox="0 0 24 24"><path d="M5 19h14"/></svg><span class="lbl">Minimize</span></button>
+    <button class="wb" id="wX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="lbl">Close</span></button>
+  </div>
+  <div class="wbody"><iframe id="wF" title="Embedded preview" allow="fullscreen; clipboard-write"></iframe></div>
+</div>
+<div class="fm" id="fm" role="dialog" aria-label="Videos">
+  <div class="wbar"><span class="wtitle" id="fmTitle">Videos</span>
+    <button class="wb" id="fmMin" aria-label="Minimize"><svg viewBox="0 0 24 24"><path d="M5 19h14"/></svg><span class="lbl">Minimize</span></button>
+    <button class="wb" id="fmX" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span class="lbl">Close</span></button>
+  </div>
+  <div class="tabs" role="tablist"><button role="tab" id="fmT0">Walkthrough · 3:43</button><button role="tab" id="fmT1">The problem · 26 s</button><button role="tab" id="fmT2">The product · 15 s</button></div>
+  <video id="fmV" controls playsinline preload="none"></video>
   <p id="fmC"></p>
 </div>
 <div class="lb" id="lb" role="dialog" aria-label="Enlarged image"><img id="lbImg" alt=""></div>
@@ -430,27 +459,35 @@ p,li{font-size:28px;line-height:1.38}
   document.querySelectorAll('[data-zoom]').forEach(function(el){el.addEventListener('click',function(){var im=el.querySelector('img');li.src=el.dataset.zoom;li.alt=im?im.alt:'';lb.classList.add('open')})});
   lb.onclick=function(){lb.classList.remove('open')};
 
-  var fm=document.getElementById('fm'),fv=document.getElementById('fmV'),fc=document.getElementById('fmC');
-  var films=[{src:'media/jordan.mp4',poster:'{{poster_jordan}}',cap:'Jordan Reyes, deal coordinator, sends one more message from the car park. AI-generated character and scenes. Fictional product, fictional data.'},{src:'media/motion.mp4',poster:'{{poster_motion}}',cap:'The product in motion: what DealDesk catches, how each issue gets its action, and why pending is not approved.'}];
-  function filmTab(n){fv.pause();fv.poster=films[n].poster;fv.src=films[n].src;fc.textContent=films[n].cap;document.getElementById('fmT0').setAttribute('aria-selected',n===0);document.getElementById('fmT1').setAttribute('aria-selected',n===1)}
-  function openFilms(n){filmTab(n);fm.classList.add('open');fv.play().catch(function(){})}
-  function closeFilms(){fv.pause();fm.classList.remove('open')}
+  var fm=document.getElementById('fm'),fv=document.getElementById('fmV'),fc=document.getElementById('fmC'),wn=document.getElementById('win'),wbd=document.getElementById('wbd'),wf=document.getElementById('wF');
+  var films=[{t:'Walkthrough video',src:'media/walkthrough.mp4',poster:'{{poster_walk}}',cap:'My walkthrough of the process and the prototype.'},{t:'The problem',src:'media/jordan.mp4',poster:'{{poster_jordan}}',cap:'Jordan Reyes, deal coordinator, sends one more message from the car park. AI-generated character and scenes. Fictional product, fictional data.'},{t:'The product',src:'media/motion.mp4',poster:'{{poster_motion}}',cap:'The product in motion: what DealDesk catches, how each issue gets its action, and why pending is not approved.'}];
+  var wins={doc:{t:'Process document',src:'https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/preview',ext:'https://docs.google.com/document/d/1ZfMwIYkjEEj_gUwjJjqtu9YYewYgbQLxrB49bfrzEMM/edit?usp=sharing'},proto:{t:'App prototype · Figma',src:'https://embed.figma.com/proto/jgldLsdlZKwrYC2xhzIm7k/DealDesk---Futureproofing?node-id=173-2546&viewport=401%2C15%2C0.3&scaling=scale-down&content-scaling=fixed&starting-point-node-id=173%3A2529&embed-host=share',ext:'https://www.figma.com/proto/jgldLsdlZKwrYC2xhzIm7k/DealDesk---Futureproofing?node-id=173-2546&viewport=401%2C15%2C0.3&t=MKHOg2uJodCdIbC7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=173%3A2529&show-proto-sidebar=1'},home:{t:'Homepage',src:'https://deal-desk-app.pages.dev/',ext:'https://deal-desk-app.pages.dev/'}};
+  var curWin=null;
+  function closeWin(){wn.classList.remove('open','mini');wbd.classList.remove('open');wf.removeAttribute('src');curWin=null}
+  function openWin(k){closeFilms();var w=wins[k];if(curWin!==k){wf.src=w.src}curWin=k;document.getElementById('wT').textContent=w.t;document.getElementById('wExt').href=w.ext;wn.classList.remove('mini');wn.classList.add('open');wbd.classList.add('open')}
+  function minWin(){var m=wn.classList.toggle('mini');wbd.classList.toggle('open',!m);document.getElementById('wMin').setAttribute('aria-label',m?'Restore':'Minimize');document.getElementById('wMin').lastChild.textContent=m?'Restore':'Minimize';document.querySelector('#wMin path').setAttribute('d',m?'M5 5h14v14H5z':'M5 19h14')}
+  function filmTab(n){fv.pause();fv.poster=films[n].poster;fv.src=films[n].src;fc.textContent=films[n].cap;[0,1,2].forEach(function(x){document.getElementById('fmT'+x).setAttribute('aria-selected',x===n)});document.getElementById('fmTitle').textContent=films[n].t}
+  function openFilms(n){closeWin();filmTab(n);fm.classList.remove('mini');fm.classList.add('open');wbd.classList.add('open');fv.play().catch(function(){})}
+  function closeFilms(){fv.pause();fm.classList.remove('open','mini');if(!curWin)wbd.classList.remove('open')}
+  function minFilms(){var m=fm.classList.toggle('mini');wbd.classList.toggle('open',!m);document.getElementById('fmMin').lastChild.textContent=m?'Restore':'Minimize';document.querySelector('#fmMin path').setAttribute('d',m?'M5 5h14v14H5z':'M5 19h14')}
   document.querySelectorAll('[data-films]').forEach(function(b){b.addEventListener('click',function(){openFilms(+b.dataset.films)})});
-  document.getElementById('fmT0').onclick=function(){filmTab(0);fv.play().catch(function(){})};
-  document.getElementById('fmT1').onclick=function(){filmTab(1);fv.play().catch(function(){})};
-  document.getElementById('fmX').onclick=closeFilms;
-  fm.addEventListener('click',function(e){if(e.target===fm)closeFilms()});
+  document.querySelectorAll('[data-win]').forEach(function(a){a.addEventListener('click',function(e){if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();openWin(a.dataset.win)})});
+  [0,1,2].forEach(function(n){document.getElementById('fmT'+n).onclick=function(){filmTab(n);fv.play().catch(function(){})}});
+  document.getElementById('fmX').onclick=closeFilms;document.getElementById('fmMin').onclick=minFilms;
+  document.getElementById('wX').onclick=closeWin;document.getElementById('wMin').onclick=minWin;
+  wbd.onclick=function(){if(fm.classList.contains('open'))closeFilms();else if(curWin)minWin()};
   document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){closeMenu();lb.classList.remove('open');closeFilms();return}
-    if(fm.classList.contains('open'))return;
+    if(e.key==='Escape'){closeMenu();lb.classList.remove('open');if(fm.classList.contains('open')&&!fm.classList.contains('mini'))closeFilms();else if(curWin&&!wn.classList.contains('mini'))minWin();return}
+    if(modalOpen())return;
     if(menu.classList.contains('open')||lb.classList.contains('open'))return;
     if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].indexOf(e.key)>-1&&!(e.target&&e.target.tagName==='A'&&e.key==='Enter')){e.preventDefault();go(cur+1)}
     if(['ArrowLeft','ArrowUp','PageUp','Backspace'].indexOf(e.key)>-1){e.preventDefault();go(cur-1)}
     if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
   });
+  function modalOpen(){return (fm.classList.contains('open')&&!fm.classList.contains('mini'))||(wn.classList.contains('open')&&!wn.classList.contains('mini'))}
   var busy=false,until=0,wt=0;function rel(){clearTimeout(wt);wt=setTimeout(function(){busy=false},Math.max(160,until-Date.now()))}
   addEventListener('wheel',function(e){
-    if(menu.classList.contains('open')||lb.classList.contains('open')||fm.classList.contains('open'))return;
+    if(menu.classList.contains('open')||lb.classList.contains('open')||modalOpen())return;
     if(busy){rel();return}
     if(Math.abs(e.deltaY)<18)return;
     busy=true;until=Date.now()+700;rel();go(cur+(e.deltaY>0?1:-1));
